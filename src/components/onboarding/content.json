@@ -1,0 +1,22 @@
+{
+  "slides": [
+    {
+      "id": 1,
+      "image": "/images/Onboarding_1.png",
+      "header": "Stay Connected, Anywhere, Anytime",
+      "description": "Welcome to Headliner, your ultimate destination for breaking news, exclusive stories, and tailored content."
+    },
+    {
+      "id": 2,
+      "image": "/images/Onboarding_2.png",
+      "header": "Become a Savvy Global Citizen.",
+      "description": "Discover tailored news that aligns with your interests and preferences. Your personalized news journey awaits!"
+    },
+    {
+      "id": 3,
+      "image": "/images/Onboarding_3.png",
+      "header": "Enhance your News Journey Now!",
+      "description": "Be part of our dynamic community and contribute your insights and participate in enriching conversations."
+    }
+  ]
+}
