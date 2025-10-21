@@ -1,0 +1,75 @@
+@use "../../styles/variables" as vars;
+
+.nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  background-color: vars.$color-white;
+  box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.1);
+  padding: 0.75rem 1rem 1.5rem 1rem;
+  z-index: 100;
+
+  &__list {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    justify-content: space-between;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+
+  &__item {
+    a,
+    a:link,
+    a:visited {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-decoration: none;
+      color: vars.$color-black;
+      font-family: vars.$font_family-body;
+      font-size: 12px;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      padding: 0.25rem;
+      border-radius: 8px;
+      min-height: 60px;
+      justify-content: center;
+
+      &:hover {
+        color: vars.$color-green;
+        background-color: rgba(vars.$color-green, 0.1);
+      }
+    }
+
+    // Active state styling
+    &--active {
+      a,
+      a:link,
+      a:visited {
+        color: vars.$color-green;
+        font-weight: 600;
+      }
+    }
+  }
+
+  &__icon {
+    width: 24px;
+    height: 24px;
+    margin-bottom: 0.25rem;
+    transition: all 0.3s ease;
+
+    // Active state for icons
+    &--active {
+      color: vars.$color-green;
+      transform: scale(1.1);
+
+      path {
+        stroke: vars.$color-green;
+      }
+    }
+  }
+}
