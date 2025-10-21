@@ -1,0 +1,111 @@
+@use "variables" as vars;
+@use "sass:color";
+
+// Button mixin with customizable properties
+@mixin button-base(
+  $bg-color: transparent,
+  $text-color: vars.$color-green,
+  $border-color: vars.$color-green,
+  $border-width: 2px,
+  $padding: 1rem 2rem,
+  $border-radius: 64px,
+  $font-size: 1rem,
+  $font-weight: 400,
+  $hover-bg: null,
+  $hover-text: null,
+  $hover-border: null
+) {
+  flex: 1;
+  padding: $padding;
+  border: $border-width solid $border-color;
+  border-radius: $border-radius;
+  background-color: $bg-color;
+  color: $text-color;
+  font-family: vars.$font_family-body;
+  font-size: $font-size;
+  font-weight: $font-weight;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  max-height: 64px;
+
+  &:hover:not(:disabled) {
+    @if $hover-bg {
+      background-color: $hover-bg;
+    }
+    @if $hover-text {
+      color: $hover-text;
+    }
+    @if $hover-border {
+      border-color: $hover-border;
+    }
+
+    // Default hover effect if no specific hover colors provided
+    @if not $hover-bg and not $hover-text and not $hover-border {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+// Predefined button variants
+@mixin button-outlined($color: vars.$color-green) {
+  @include button-base(
+    $bg-color: transparent,
+    $text-color: $color,
+    $border-color: $color,
+    $hover-bg: $color,
+    $hover-text: vars.$color-white
+  );
+}
+
+@mixin button-filled(
+  $bg-color: vars.$color-green,
+  $text-color: vars.$color-white
+) {
+  @include button-base(
+    $bg-color: $bg-color,
+    $text-color: $text-color,
+    $border-color: $bg-color,
+    $hover-bg: color.adjust($bg-color, $lightness: -10%)
+  );
+}
+
+@mixin button-ghost($color: vars.$color-green) {
+  @include button-base(
+    $bg-color: transparent,
+    $text-color: $color,
+    $border-color: transparent,
+    $hover-bg: color.change($color, $alpha: 0.1),
+    $hover-text: $color
+  );
+}
+
+// Size variants
+@mixin button-small {
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  border-radius: 32px;
+}
+
+@mixin button-large {
+  padding: 1.25rem 2.5rem;
+  font-size: 1.125rem;
+  border-radius: 72px;
+}
+
+// Special variants
+@mixin button-rounded($radius: 50%) {
+  border-radius: $radius;
+  aspect-ratio: 1;
+  padding: 1rem;
+}
+
+@mixin button-full-width {
+  width: 100%;
+  flex: none;
+}

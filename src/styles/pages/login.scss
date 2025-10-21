@@ -1,0 +1,134 @@
+@use "../variables" as vars;
+@use "../mixins" as mixins;
+
+.login {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3.5rem 1rem;
+  height: 100vh;
+  background-color: vars.$color-white;
+  color: vars.$color-black;
+
+  &__logo {
+    width: 10em;
+    height: 10em;
+    object-fit: contain;
+  }
+
+  &__title {
+    font-family: vars.$font_family-heading;
+    font-size: vars.$font_size-header;
+    text-align: center;
+  }
+
+  &__subtitle {
+    font-family: vars.$font_family-body;
+    font-size: vars.$font_size-description;
+    color: vars.$color-black;
+    text-align: center;
+    margin: 3rem 0;
+  }
+
+  &__buttons-external {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 100%;
+    max-width: 300px;
+    margin-bottom: 2rem;
+  }
+
+  &__button-external {
+    @include mixins.button-outlined(vars.$color-gray);
+    color: vars.$color-black;
+    font-weight: 600;
+
+    &:hover {
+      background-color: vars.$color-gray;
+      transform: translateY(-1px);
+    }
+  }
+
+  &__button-internal {
+    @include mixins.button-filled(vars.$color-green, vars.$color-white);
+    width: 100%;
+    max-width: 300px;
+    font-weight: 600;
+    margin: 2rem 0;
+  }
+
+  // Separator with "or" text
+  &__separator {
+    position: relative;
+    width: 100%;
+    max-width: 300px;
+    margin: 1.5rem 0;
+
+    &::before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background-color: vars.$color-black;
+      width: 130px;
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      right: 0;
+      height: 1px;
+      background-color: vars.$color-black;
+      width: 130px;
+    }
+
+    &-text {
+      position: relative;
+      display: block;
+      text-align: center;
+      color: vars.$color-black;
+      font-family: vars.$font-family-body;
+      font-size: 16px;
+      padding: 0 1rem;
+      z-index: 1;
+    }
+  }
+
+  &__signup-text {
+    font-family: vars.$font_family-body;
+    font-size: vars.$font_size-description-small;
+    color: vars.$color-black;
+    margin-top: 1rem;
+
+    a {
+      color: vars.$color-green;
+      text-decoration: none;
+      font-weight: 600;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}
+
+// Responsive design
+@media (min-width: 768px) {
+  .login {
+    &__logo {
+      width: 100px;
+      height: 100px;
+    }
+
+    &__buttons-external,
+    &__separator,
+    &__button-internal {
+      max-width: 400px;
+    }
+  }
+}

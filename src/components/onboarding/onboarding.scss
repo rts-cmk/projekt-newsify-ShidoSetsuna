@@ -1,15 +1,15 @@
 @use "../../styles/variables" as vars;
+@use "../../styles/mixins" as mixins;
 
 .onboarding {
-  position: fixed;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   min-height: 80vh;
+  height: 100vh;
   text-align: center;
   background-color: vars.$color-white;
-  padding-top: 2rem;
 
   &__content {
     flex: 0;
@@ -71,30 +71,17 @@
   }
 
   &__nav-btn {
-    flex: 1;
-    padding: 1rem 2rem;
-    border: none;
-    border-radius: 64px;
-    font-family: vars.$font_family-body;
-    font-size: 1rem;
-    font-weight: 400;
-    cursor: pointer;
-    transition: all 0.3s ease;
+    // Base button styling using mixin
+    @include mixins.button-base();
 
     &--prev {
-      background-color: #ffffff00;
-      color: vars.$color-green;
-      border: 2px solid vars.$color-green;
+      // Outlined button variant
+      @include mixins.button-outlined(vars.$color-green);
     }
 
     &--next {
-      background-color: vars.$color-green;
-      color: vars.$color-white;
-    }
-
-    &:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
+      // Filled button variant
+      @include mixins.button-filled(vars.$color-green, vars.$color-white);
     }
   }
 }
