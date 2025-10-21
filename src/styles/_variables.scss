@@ -1,16 +1,17 @@
-$color-green: #4d861f;
-$color-black: #404040;
-$color-gray: #c5c5c5;
-$color-white: #ffffff;
-$color-red: #ff5d5d;
+$color-brand: #4d861f;
+$color-text: #404040;
+$color-accent: #c5c5c5;
+$color-bg: #ffffff;
+$color-delete: #ff5d5d;
 
 //Colors for darkmode
-$theme_dark-black: #222222;
-$theme_dark-white: #d9d9d9;
+$theme_dark-bg: #222222;
+$theme_dark-text: #d9d9d9;
 
 //Font sizes
 $font_size-title: 38px;
 $font_size-header: 32px;
+$font_size-subheader: 24px;
 $font_size-description: 18px;
 $font_size-description-small: 16px;
 $font_size-button: 16px;

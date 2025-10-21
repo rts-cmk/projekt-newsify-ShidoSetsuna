@@ -1,0 +1,27 @@
+@use "../../styles/variables" as vars;
+
+.app-bar {
+  display: flex;
+  justify-content: center;
+  padding: 2rem;
+  align-items: center;
+
+  a {
+    display: flex;
+    align-items: flex-end;
+    gap: 1rem;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  &__logo {
+    width: 2rem;
+  }
+
+  &__title {
+    font-family: vars.$font_family-heading;
+    font-size: vars.$font_size-subheader;
+    font-weight: 800;
+    color: vars.$color-black;
+  }
+}

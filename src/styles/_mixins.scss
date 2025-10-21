@@ -4,8 +4,8 @@
 // Button mixin with customizable properties
 @mixin button-base(
   $bg-color: transparent,
-  $text-color: vars.$color-green,
-  $border-color: vars.$color-green,
+  $text-color: vars.$color-brand,
+  $border-color: vars.$color-brand,
   $border-width: 2px,
   $padding: 1rem 2rem,
   $border-radius: 64px,
@@ -53,19 +53,19 @@
 }
 
 // Predefined button variants
-@mixin button-outlined($color: vars.$color-green) {
+@mixin button-outlined($color: vars.$color-brand) {
   @include button-base(
     $bg-color: transparent,
     $text-color: $color,
     $border-color: $color,
     $hover-bg: $color,
-    $hover-text: vars.$color-white
+    $hover-text: vars.$color-bg
   );
 }
 
 @mixin button-filled(
-  $bg-color: vars.$color-green,
-  $text-color: vars.$color-white
+  $bg-color: vars.$color-brand,
+  $text-color: vars.$color-bg
 ) {
   @include button-base(
     $bg-color: $bg-color,
@@ -75,7 +75,7 @@
   );
 }
 
-@mixin button-ghost($color: vars.$color-green) {
+@mixin button-ghost($color: vars.$color-brand) {
   @include button-base(
     $bg-color: transparent,
     $text-color: $color,

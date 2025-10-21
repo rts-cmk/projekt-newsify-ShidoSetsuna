@@ -8,8 +8,8 @@
   justify-content: center;
   padding: 3.5rem 1rem;
   height: 100vh;
-  background-color: vars.$color-white;
-  color: vars.$color-black;
+  background-color: vars.$color-bg;
+  color: vars.$color-text;
 
   &__logo {
     width: 10em;
@@ -26,7 +26,7 @@
   &__subtitle {
     font-family: vars.$font_family-body;
     font-size: vars.$font_size-description;
-    color: vars.$color-black;
+    color: vars.$color-text;
     text-align: center;
     margin: 3rem 0;
   }
@@ -41,18 +41,18 @@
   }
 
   &__button-external {
-    @include mixins.button-outlined(vars.$color-gray);
-    color: vars.$color-black;
+    @include mixins.button-outlined(vars.$color-accent);
+    color: vars.$color-text;
     font-weight: 600;
 
     &:hover {
-      background-color: vars.$color-gray;
+      background-color: vars.$color-accent;
       transform: translateY(-1px);
     }
   }
 
   &__button-internal {
-    @include mixins.button-filled(vars.$color-green, vars.$color-white);
+    @include mixins.button-filled(vars.$color-brand, vars.$color-bg);
     width: 100%;
     max-width: 300px;
     font-weight: 600;
@@ -73,7 +73,7 @@
       left: 0;
       right: 0;
       height: 1px;
-      background-color: vars.$color-black;
+      background-color: vars.$color-text;
       width: 130px;
     }
 
@@ -83,7 +83,7 @@
       top: 50%;
       right: 0;
       height: 1px;
-      background-color: vars.$color-black;
+      background-color: vars.$color-text;
       width: 130px;
     }
 
@@ -91,7 +91,7 @@
       position: relative;
       display: block;
       text-align: center;
-      color: vars.$color-black;
+      color: vars.$color-text;
       font-family: vars.$font-family-body;
       font-size: 16px;
       padding: 0 1rem;
@@ -102,11 +102,11 @@
   &__signup-text {
     font-family: vars.$font_family-body;
     font-size: vars.$font_size-description-small;
-    color: vars.$color-black;
+    color: vars.$color-text;
     margin-top: 1rem;
 
     a {
-      color: vars.$color-green;
+      color: vars.$color-brand;
       text-decoration: none;
       font-weight: 600;
 

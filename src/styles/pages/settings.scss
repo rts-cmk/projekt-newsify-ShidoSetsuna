@@ -1,0 +1,52 @@
+@use "../../styles/variables" as vars;
+@use "../../styles/mixins" as mixins;
+
+.settings {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: vars.$color-background;
+  color: vars.$color-text;
+  padding: 2rem 1rem;
+
+  &__title {
+    font-family: vars.$font_family-body;
+    font-size: vars.$font_size-header;
+    margin: 0 0 2rem;
+    color: vars.$color-primary;
+  }
+
+  &__categories {
+    width: 100%;
+    max-width: 400px;
+    margin-bottom: 2rem;
+  }
+
+  &__category-title {
+    font-family: vars.$font_family-body;
+    font-size: vars.$font_size-subheader;
+    color: vars.$color-text;
+    margin-bottom: 1rem;
+  }
+
+  &__general {
+    width: 100%;
+    max-width: 400px;
+  }
+
+  &__general-title {
+    font-family: vars.$font_family-body;
+    font-size: vars.$font_size-subheader;
+    color: vars.$color-text;
+    margin-bottom: 1rem;
+  }
+
+  &__option {
+    padding: 1rem;
+    background-color: vars.$color-surface;
+    border-radius: 12px;
+    margin-bottom: 1rem;
+    transition: background-color 0.2s ease;
+  }
+}

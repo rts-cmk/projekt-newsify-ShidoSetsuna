@@ -9,7 +9,7 @@
   min-height: 80vh;
   height: 100vh;
   text-align: center;
-  background-color: vars.$color-white;
+  background-color: vars.$color-bg;
 
   &__content {
     flex: 0;
@@ -31,14 +31,14 @@
     font-weight: 700;
     margin-bottom: 1rem;
     line-height: 1.3;
-    color: vars.$color-black;
+    color: vars.$color-text;
   }
 
   &__description {
     font-family: vars.$font_family-body;
     font-size: vars.$font_size-description;
     line-height: 1.5;
-    color: vars.$color-black;
+    color: vars.$color-text;
     margin-bottom: 2.4rem;
   }
 
@@ -53,12 +53,12 @@
     height: 12px;
     border-radius: 50%;
     border: none;
-    background-color: vars.$color-gray;
+    background-color: vars.$color-accent;
     cursor: pointer;
     transition: background-color 0.3s ease;
 
     &.active {
-      background-color: vars.$color-green;
+      background-color: vars.$color-brand;
     }
   }
 
@@ -76,12 +76,12 @@
 
     &--prev {
       // Outlined button variant
-      @include mixins.button-outlined(vars.$color-green);
+      @include mixins.button-outlined(vars.$color-brand);
     }
 
     &--next {
       // Filled button variant
-      @include mixins.button-filled(vars.$color-green, vars.$color-white);
+      @include mixins.button-filled(vars.$color-brand, vars.$color-bg);
     }
   }
 }

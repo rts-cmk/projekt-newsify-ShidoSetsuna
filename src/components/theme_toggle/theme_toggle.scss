@@ -1,0 +1,69 @@
+@use "../../styles/variables" as vars;
+
+.theme-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 8px;
+  transition: background-color 0.2s ease;
+  font-family: vars.$font_family-body;
+  color: vars.$color-text;
+
+  &:hover {
+    background-color: rgba(vars.$color-primary, 0.1);
+  }
+
+  &__track {
+    position: relative;
+    width: 52px;
+    height: 28px;
+    background-color: vars.$color-text-secondary;
+    border-radius: 14px;
+    transition: background-color 0.3s ease;
+  }
+
+  &--dark &__track {
+    background-color: vars.$color-primary;
+  }
+
+  &__thumb {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 24px;
+    height: 24px;
+    background-color: vars.$color-background;
+    border-radius: 50%;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+
+  &--dark &__thumb {
+    transform: translateX(24px);
+  }
+
+  &__icon {
+    width: 14px;
+    height: 14px;
+    color: vars.$color-text;
+    transition: color 0.2s ease;
+  }
+
+  &__label {
+    font-size: vars.$font_size-description-small;
+    font-weight: 500;
+    user-select: none;
+  }
+
+  &:focus-visible {
+    outline: 2px solid vars.$color-primary;
+    outline-offset: 2px;
+  }
+}
