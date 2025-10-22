@@ -23,28 +23,27 @@
     }
   }
 
-  &__categories {
+  // Shared styling for all sections
+  &__section {
     width: 100%;
     max-width: 400px;
     margin-bottom: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 
-  &__category-title {
-    font-family: vars.$font_family-body;
-    font-size: vars.$font_size-subheader;
-    margin-bottom: 1rem;
-
-    @include vars.themify(vars.$themes) {
-      color: vars.themed("text");
-    }
+  // Specific sections can inherit from __section
+  &__categories {
+    @extend .settings__section;
   }
 
   &__general {
-    width: 100%;
-    max-width: 400px;
+    @extend .settings__section;
   }
 
-  &__general-title {
+  // Shared styling for all section titles
+  &__section-title {
     font-family: vars.$font_family-body;
     font-size: vars.$font_size-subheader;
     margin-bottom: 1rem;
@@ -52,11 +51,20 @@
     @include vars.themify(vars.$themes) {
       color: vars.themed("text");
     }
+  }
+
+  // Specific titles can inherit from __section-title
+  &__category-title {
+    @extend .settings__section-title;
+  }
+
+  &__general-title {
+    @extend .settings__section-title;
   }
 
   &__option {
     padding: 1rem;
-    border-radius: 12px;
+    border-radius: 64px;
     margin-bottom: 1rem;
     transition: background-color 0.2s ease;
 
