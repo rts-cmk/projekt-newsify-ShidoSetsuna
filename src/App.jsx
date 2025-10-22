@@ -80,8 +80,21 @@ function App() {
   const [showOnboarding, setShowOnboarding] = useState(false);
   const [appReady, setAppReady] = useState(false);
 
+  // Initialize theme immediately on app load
   useEffect(() => {
-    // Check if this is a fresh app load (not internal navigation)
+    const initializeTheme = () => {
+      const saved = localStorage.getItem("theme");
+      const isDark = saved
+        ? saved === "dark"
+        : window.matchMedia("(prefers-color-scheme: dark)").matches;
+      document.body.className = isDark ? "dark-theme" : "light-theme";
+    };
+
+    initializeTheme();
+  }, []);
+
+  useEffect(() => {
+    // Check if this is a fresh app load
     const hasShownSplashThisSession = sessionStorage.getItem("splash_shown");
 
     if (!hasShownSplashThisSession || !isAuthenticated()) {

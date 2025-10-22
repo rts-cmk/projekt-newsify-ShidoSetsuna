@@ -2,11 +2,13 @@
 
 .nav {
   position: fixed;
-  bottom: 0;
+  bottom: -1px;
   left: 0;
   right: 0;
   width: 100%;
-  background-color: vars.$color-bg;
+  @include vars.themify(vars.$themes) {
+    background-color: vars.themed("bg");
+  }
   box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.1);
   padding: 0.75rem 1rem 1.5rem 1rem;
   z-index: 100;
@@ -27,7 +29,9 @@
       flex-direction: column;
       align-items: center;
       text-decoration: none;
-      color: vars.$color-text;
+      @include vars.themify(vars.$themes) {
+        color: vars.themed("text");
+      }
       font-family: vars.$font_family-body;
       font-size: 12px;
       font-weight: 500;
@@ -58,13 +62,21 @@
     margin-bottom: 0.25rem;
     transition: all 0.3s ease;
 
+    path {
+      @include vars.themify(vars.$themes) {
+        stroke: vars.themed("text");
+      }
+    }
+
     // Active state for icons
     &--active {
       color: vars.$color-brand;
       transform: scale(1.1);
 
       path {
-        stroke: vars.$color-brand;
+        @include vars.themify(vars.$themes) {
+          stroke: vars.$color-brand !important;
+        }
       }
     }
   }

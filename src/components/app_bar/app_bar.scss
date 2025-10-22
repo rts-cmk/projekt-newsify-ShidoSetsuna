@@ -5,6 +5,9 @@
   justify-content: center;
   padding: 2rem;
   align-items: center;
+  @include vars.themify(vars.$themes) {
+    background-color: vars.themed("bg");
+  }
 
   a {
     display: flex;
@@ -22,6 +25,8 @@
     font-family: vars.$font_family-heading;
     font-size: vars.$font_size-subheader;
     font-weight: 800;
-    color: vars.$color-black;
+    @include vars.themify(vars.$themes) {
+      color: vars.themed("text");
+    }
   }
 }

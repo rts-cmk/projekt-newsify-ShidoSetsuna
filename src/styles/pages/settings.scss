@@ -6,15 +6,21 @@
   align-items: center;
   flex-direction: column;
   min-height: 100vh;
-  background-color: vars.$color-background;
-  color: vars.$color-text;
   padding: 2rem 1rem;
+
+  @include vars.themify(vars.$themes) {
+    background-color: vars.themed("bg");
+    color: vars.themed("text");
+  }
 
   &__title {
     font-family: vars.$font_family-body;
     font-size: vars.$font_size-header;
     margin: 0 0 2rem;
-    color: vars.$color-primary;
+
+    @include vars.themify(vars.$themes) {
+      color: vars.themed("brand");
+    }
   }
 
   &__categories {
@@ -26,8 +32,11 @@
   &__category-title {
     font-family: vars.$font_family-body;
     font-size: vars.$font_size-subheader;
-    color: vars.$color-text;
     margin-bottom: 1rem;
+
+    @include vars.themify(vars.$themes) {
+      color: vars.themed("text");
+    }
   }
 
   &__general {
@@ -38,15 +47,21 @@
   &__general-title {
     font-family: vars.$font_family-body;
     font-size: vars.$font_size-subheader;
-    color: vars.$color-text;
     margin-bottom: 1rem;
+
+    @include vars.themify(vars.$themes) {
+      color: vars.themed("text");
+    }
   }
 
   &__option {
     padding: 1rem;
-    background-color: vars.$color-surface;
     border-radius: 12px;
     margin-bottom: 1rem;
     transition: background-color 0.2s ease;
+
+    @include vars.themify(vars.$themes) {
+      background-color: vars.themed("surface");
+    }
   }
 }

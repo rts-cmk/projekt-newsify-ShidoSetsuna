@@ -1,6 +1,16 @@
 @use "reset";
-@use "variables";
+@use "variables" as vars;
 
 // Fonts
 @use "@fontsource-variable/playfair-display";
 @use "@fontsource-variable/open-sans";
+
+// Global theme styling
+@include vars.themify-root(vars.$themes) {
+  body,
+  #root {
+    background-color: vars.themed("bg");
+    color: vars.themed("text");
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+}

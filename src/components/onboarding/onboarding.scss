@@ -9,7 +9,9 @@
   min-height: 80vh;
   height: 100vh;
   text-align: center;
-  background-color: vars.$color-bg;
+  @include vars.themify(vars.$themes) {
+    background-color: vars.themed("bg");
+  }
 
   &__content {
     flex: 0;

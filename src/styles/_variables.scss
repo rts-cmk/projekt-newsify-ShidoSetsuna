@@ -1,3 +1,5 @@
+@use "sass:map";
+
 $color-brand: #4d861f;
 $color-text: #404040;
 $color-accent: #c5c5c5;
@@ -7,6 +9,53 @@ $color-delete: #ff5d5d;
 //Colors for darkmode
 $theme_dark-bg: #222222;
 $theme_dark-text: #d9d9d9;
+
+// Theme definitions using the mixin approach
+$themes: (
+  light: (
+    brand: $color-brand,
+    text: $color-text,
+    accent: $color-accent,
+    bg: $color-bg,
+    surface: $color-bg,
+    delete: $color-delete,
+  ),
+  dark: (
+    brand: $color-brand,
+    text: $theme_dark-text,
+    accent: $color-accent,
+    bg: $theme_dark-bg,
+    surface: #2a2a2a,
+    delete: $color-delete,
+  ),
+);
+
+// Themify mixin - generates styles for all themes
+@mixin themify($themes) {
+  @each $theme, $theme-map in $themes {
+    .#{$theme}-theme & {
+      $theme-map: $theme-map !global;
+      @content;
+      $theme-map: null !global;
+    }
+  }
+}
+
+// Alternative mixin for top-level usage (like body)
+@mixin themify-root($themes) {
+  @each $theme, $theme-map in $themes {
+    .#{$theme}-theme {
+      $theme-map: $theme-map !global;
+      @content;
+      $theme-map: null !global;
+    }
+  }
+}
+
+// Function to get themed values
+@function themed($key) {
+  @return map.get($theme-map, $key);
+}
 
 //Font sizes
 $font_size-title: 38px;
