@@ -7,10 +7,14 @@
 
 // Global theme styling
 @include vars.themify-root(vars.$themes) {
-  body,
-  #root {
+  background-color: vars.themed("bg");
+  color: vars.themed("text");
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+#root {
+  @include vars.themify(vars.$themes) {
     background-color: vars.themed("bg");
     color: vars.themed("text");
-    transition: background-color 0.3s ease, color 0.3s ease;
   }
 }

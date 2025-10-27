@@ -1,15 +1,49 @@
 import { createBrowserRouter, RouterProvider, Navigate } from "react-router";
 import { useState, useEffect } from "react";
+import { QueryClient } from "@tanstack/react-query";
+import { PersistQueryClientProvider } from "@tanstack/react-query-persist-client";
 
 import Login from "./pages/login.jsx";
 import Home from "./pages/home.jsx";
 import Archive from "./pages/archive.jsx";
 import Popular from "./pages/popular.jsx";
 import Settings from "./pages/settings.jsx";
+import Search from "./pages/search.jsx";
 import ErrorPage from "./pages/error.jsx";
 import Layout from "./layout/layout.jsx";
 import Splash from "./components/splash/splash.jsx";
 import Onboarding from "./components/onboarding/onboarding.jsx";
+
+// Create a client
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 1000 * 60 * 4, // 4 minutes
+      gcTime: 1000 * 60 * 60 * 24, // 24 hours
+      refetchOnWindowFocus: false,
+      retry: (failureCount, error) => {
+        if (error?.message?.includes("429")) {
+          return false;
+        }
+        return failureCount < 2;
+      },
+    },
+  },
+});
+
+// Create persister using the new simple API
+const persister = {
+  persistClient: async (client) => {
+    localStorage.setItem("nyt-query-cache", JSON.stringify(client));
+  },
+  restoreClient: async () => {
+    const cache = localStorage.getItem("nyt-query-cache");
+    return cache ? JSON.parse(cache) : undefined;
+  },
+  removeClient: async () => {
+    localStorage.removeItem("nyt-query-cache");
+  },
+};
 
 // Auth utility functions
 const isAuthenticated = () => {
@@ -35,7 +69,7 @@ const ProtectedRoute = ({ children }) => {
   return isAuthenticated() ? children : <Navigate to="/login" replace />;
 };
 
-// Public Route Component (redirect if already logged in)
+// Public Route Component
 const PublicRoute = ({ children }) => {
   return !isAuthenticated() ? children : <Navigate to="/" replace />;
 };
@@ -71,6 +105,10 @@ const router = createBrowserRouter([
         path: "settings",
         element: <Settings />,
       },
+      {
+        path: "search",
+        element: <Search />,
+      },
     ],
   },
 ]);
@@ -94,28 +132,21 @@ function App() {
   }, []);
 
   useEffect(() => {
-    // Check if this is a fresh app load
     const hasShownSplashThisSession = sessionStorage.getItem("splash_shown");
 
     if (!hasShownSplashThisSession || !isAuthenticated()) {
-      // First time this session - show splash
       setShowSplash(true);
       sessionStorage.setItem("splash_shown", "true");
     } else {
-      // Already shown splash this session - skip to appropriate screen
       if (isAuthenticated() && hasSeenOnboarding()) {
-        // User is logged in and has seen onboarding - go straight to app
         setAppReady(true);
       } else if (!hasSeenOnboarding()) {
-        // User hasn't seen onboarding - show it
         setShowOnboarding(true);
       } else {
-        // User has seen onboarding but not logged in - go to login
         setAppReady(true);
       }
     }
 
-    // Check if user has seen onboarding
     if (!hasSeenOnboarding()) {
       setShowOnboarding(true);
     }
@@ -123,16 +154,11 @@ function App() {
 
   const handleSplashComplete = () => {
     setShowSplash(false);
-    // If user is logged in and has seen onboarding, go straight to app
     if (isAuthenticated() && hasSeenOnboarding()) {
       setAppReady(true);
-    }
-    // If user hasn't seen onboarding, show it next
-    else if (!hasSeenOnboarding()) {
+    } else if (!hasSeenOnboarding()) {
       // Onboarding will be shown
-    }
-    // If user has seen onboarding but not logged in, go to login
-    else {
+    } else {
       setAppReady(true);
     }
   };
@@ -151,26 +177,48 @@ function App() {
 
   // Show splash screen first
   if (showSplash) {
-    return <Splash onComplete={handleSplashComplete} />;
+    return (
+      <PersistQueryClientProvider
+        client={queryClient}
+        persistOptions={{ persister }}>
+        <Splash onComplete={handleSplashComplete} />
+      </PersistQueryClientProvider>
+    );
   }
 
   // Show onboarding if user hasn't seen it
   if (showOnboarding && !hasSeenOnboarding()) {
     return (
-      <Onboarding
-        onSkip={handleOnboardingSkip}
-        onComplete={handleOnboardingComplete}
-      />
+      <PersistQueryClientProvider
+        client={queryClient}
+        persistOptions={{ persister }}>
+        <Onboarding
+          onSkip={handleOnboardingSkip}
+          onComplete={handleOnboardingComplete}
+        />
+      </PersistQueryClientProvider>
     );
   }
 
   // Show the main app with routing
   if (appReady) {
-    return <RouterProvider router={router} />;
+    return (
+      <PersistQueryClientProvider
+        client={queryClient}
+        persistOptions={{ persister }}>
+        <RouterProvider router={router} />
+      </PersistQueryClientProvider>
+    );
   }
 
-  // Fallback - should never reach here, but just in case
-  return <RouterProvider router={router} />;
+  // Fallback
+  return (
+    <PersistQueryClientProvider
+      client={queryClient}
+      persistOptions={{ persister }}>
+      <RouterProvider router={router} />
+    </PersistQueryClientProvider>
+  );
 }
 
 export default App;

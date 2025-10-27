@@ -1,75 +1,53 @@
-@use "../../styles/variables" as vars;
-@use "../../styles/mixins" as mixins;
+// styles/pages/settings.scss
+@use "../variables" as vars;
 
 .settings {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 24px 16px;
   min-height: 100vh;
-  padding: 2rem 1rem;
 
   @include vars.themify(vars.$themes) {
-    background-color: vars.themed("bg");
-    color: vars.themed("text");
+    background: vars.themed("bg");
   }
 
   &__title {
-    font-family: vars.$font_family-body;
+    font-family: vars.$font_family-heading;
     font-size: vars.$font_size-header;
-    margin: 0 0 2rem;
-
-    @include vars.themify(vars.$themes) {
-      color: vars.themed("brand");
-    }
-  }
-
-  // Shared styling for all sections
-  &__section {
-    width: 100%;
-    max-width: 400px;
-    margin-bottom: 2rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  // Specific sections can inherit from __section
-  &__categories {
-    @extend .settings__section;
-  }
-
-  &__general {
-    @extend .settings__section;
-  }
-
-  // Shared styling for all section titles
-  &__section-title {
-    font-family: vars.$font_family-body;
-    font-size: vars.$font_size-subheader;
-    margin-bottom: 1rem;
+    margin: 0 0 32px 0;
 
     @include vars.themify(vars.$themes) {
       color: vars.themed("text");
     }
   }
 
-  // Specific titles can inherit from __section-title
-  &__category-title {
-    @extend .settings__section-title;
+  &__section {
+    margin-bottom: 32px;
+
+    @include vars.themify(vars.$themes) {
+      border-bottom: 1px solid vars.themed("surface");
+    }
+
+    &:last-child {
+      border-bottom: none;
+    }
   }
 
-  &__general-title {
-    @extend .settings__section-title;
+  &__section-title {
+    font-family: vars.$font_family-body;
+    font-size: vars.$font_size-subheader;
+    margin: 0 0 16px 0;
+
+    @include vars.themify(vars.$themes) {
+      color: vars.themed("text");
+    }
+  }
+
+  &__toggles {
+    padding-bottom: 16px;
   }
 
   &__option {
-    padding: 1rem;
-    border-radius: 64px;
-    margin-bottom: 1rem;
-    transition: background-color 0.2s ease;
-
-    @include vars.themify(vars.$themes) {
-      background-color: vars.themed("surface");
-    }
+    padding: 16px 0 24px 0;
   }
 }

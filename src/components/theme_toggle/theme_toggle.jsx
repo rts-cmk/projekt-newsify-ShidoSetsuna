@@ -12,7 +12,6 @@ export default function ThemeToggle() {
   });
 
   useEffect(() => {
-    // Apply theme class to document body
     document.body.className = isDarkMode ? "dark-theme" : "light-theme";
     localStorage.setItem("theme", isDarkMode ? "dark" : "light");
   }, [isDarkMode]);

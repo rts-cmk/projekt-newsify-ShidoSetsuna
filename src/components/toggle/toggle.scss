@@ -1,0 +1,74 @@
+@use "../../styles/variables" as vars;
+
+.toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 0;
+  cursor: pointer;
+  user-select: none;
+
+  &__label {
+    font-family: vars.$font_family-body;
+    font-size: vars.$font_size-description-small;
+    font-weight: 500;
+
+    @include vars.themify(vars.$themes) {
+      color: vars.themed("text");
+    }
+  }
+
+  &__switch {
+    position: relative;
+    width: 48px;
+    height: 28px;
+    flex-shrink: 0;
+  }
+
+  &__input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+
+    &:checked + .toggle__slider {
+      @include vars.themify(vars.$themes) {
+        background: vars.themed("brand");
+      }
+    }
+
+    &:checked + .toggle__slider::before {
+      transform: translateX(20px);
+    }
+
+    &:focus + .toggle__slider {
+      box-shadow: 0 0 0 2px rgba(77, 134, 31, 0.2);
+    }
+  }
+
+  &__slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 28px;
+    transition: background-color 0.3s;
+
+    @include vars.themify(vars.$themes) {
+      background: vars.themed("accent");
+    }
+
+    &::before {
+      content: "";
+      position: absolute;
+      height: 20px;
+      width: 20px;
+      left: 4px;
+      bottom: 4px;
+      background: white;
+      border-radius: 50%;
+      transition: transform 0.3s;
+    }
+  }
+}

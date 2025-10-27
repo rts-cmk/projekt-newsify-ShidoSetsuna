@@ -1,0 +1,68 @@
+// styles/pages/search.scss
+@use "../variables" as vars;
+
+.search {
+  max-width: 800px;
+  margin: 0 auto;
+  min-height: 100vh;
+
+  @include vars.themify(vars.$themes) {
+    background: vars.themed("bg");
+  }
+
+  &__header {
+    padding: 24px 16px;
+
+    @include vars.themify(vars.$themes) {
+      border-bottom: 1px solid vars.themed("surface");
+    }
+  }
+
+  &__title {
+    font-family: vars.$font_family-heading;
+    font-size: vars.$font_size-header;
+    margin: 0 0 8px 0;
+
+    @include vars.themify(vars.$themes) {
+      color: vars.themed("text");
+    }
+  }
+
+  &__query {
+    font-family: vars.$font_family-body;
+    font-size: vars.$font_size-description;
+    margin: 0 0 8px 0;
+    font-style: italic;
+
+    @include vars.themify(vars.$themes) {
+      color: vars.themed("accent");
+    }
+  }
+
+  &__count {
+    font-family: vars.$font_family-body;
+    font-size: vars.$font_size-description-small;
+    margin: 0;
+
+    @include vars.themify(vars.$themes) {
+      color: vars.themed("accent");
+    }
+  }
+
+  &__loading,
+  &__error,
+  &__empty {
+    padding: 32px 16px;
+    text-align: center;
+    font-family: vars.$font_family-body;
+    font-size: vars.$font_size-description;
+
+    @include vars.themify(vars.$themes) {
+      color: vars.themed("accent");
+    }
+  }
+
+  &__results {
+    // Articles will be displayed here
+  }
+}

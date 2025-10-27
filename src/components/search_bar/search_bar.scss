@@ -1,0 +1,80 @@
+@use "../../styles/variables" as vars;
+
+.search-bar {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 40px;
+  border-radius: 20px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+
+  @include vars.themify(vars.$themes) {
+    background: vars.themed("surface");
+  }
+
+  &__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    flex-shrink: 0;
+    z-index: 2;
+
+    @include vars.themify(vars.$themes) {
+      color: vars.themed("text");
+    }
+  }
+
+  &__input {
+    width: 0;
+    height: 100%;
+    border: none;
+    outline: none;
+    font-family: vars.$font_family-body;
+    font-size: vars.$font_size-button;
+    background: transparent;
+    opacity: 0;
+    transition: all 0.3s ease;
+
+    @include vars.themify(vars.$themes) {
+      color: vars.themed("text");
+    }
+
+    &::placeholder {
+      @include vars.themify(vars.$themes) {
+        color: vars.themed("accent");
+      }
+    }
+  }
+
+  &__clear {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    flex-shrink: 0;
+
+    @include vars.themify(vars.$themes) {
+      color: vars.themed("accent");
+    }
+  }
+
+  &--expanded {
+    width: 250px;
+
+    .search-bar__input {
+      width: 100%;
+      padding: 0 8px;
+      opacity: 1;
+    }
+  }
+}

@@ -6,8 +6,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: 80vh;
-  height: 100vh;
+  min-height: 100vh;
   text-align: center;
   @include vars.themify(vars.$themes) {
     background-color: vars.themed("bg");

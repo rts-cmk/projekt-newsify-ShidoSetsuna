@@ -12,7 +12,7 @@ $theme_dark-bg: #222222;
 $theme_dark-text: #d9d9d9;
 $theme_dark-surface: #2a2a2a;
 
-// Theme definitions using the mixin approach
+// Theme definitions using the mixin
 $themes: (
   light: (
     brand: $color-brand,
@@ -32,7 +32,7 @@ $themes: (
   ),
 );
 
-// Themify mixin - generates styles for all themes
+// Themify mixin
 @mixin themify($themes) {
   @each $theme, $theme-map in $themes {
     .#{$theme}-theme & {
