@@ -55,7 +55,7 @@ function Search() {
           article.title.toLowerCase().includes(query.toLowerCase()) ||
           article.abstract.toLowerCase().includes(query.toLowerCase())
       )
-      .slice(0, 10);
+      .slice(0, 10); // Limit to 10 results
   }, [popularToday, popularWeek, popularMonth, query, source]);
 
   const archiveResults = useMemo(() => {
@@ -67,7 +67,7 @@ function Search() {
           article.title.toLowerCase().includes(query.toLowerCase()) ||
           article.abstract.toLowerCase().includes(query.toLowerCase())
       )
-      .slice(0, 10);
+      .slice(0, 10); // Limit to 10 results
   }, [favorites, query, source]);
 
   const results =

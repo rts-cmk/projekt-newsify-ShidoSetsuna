@@ -49,6 +49,7 @@
       }
     }
 
+    // Active state styling
     &--active {
       a {
         color: vars.$color-brand !important;
@@ -69,6 +70,7 @@
       }
     }
 
+    // Active state for icons
     &--active {
       color: vars.$color-brand;
       transform: scale(1.1);

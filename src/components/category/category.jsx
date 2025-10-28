@@ -87,8 +87,9 @@ function Category({
 
     const details = e.currentTarget;
 
-    // If details was closed by browser (fx another details with same name opened)
+    // If details was closed by browser (e.g., another details with same name opened)
     if (!details.open && isOpen) {
+      // Animate close
       content.style.transition = "max-height 0.3s ease-out";
       content.style.maxHeight = "0";
 

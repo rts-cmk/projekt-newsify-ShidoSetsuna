@@ -1,5 +1,6 @@
 import Category from "../components/category/category";
 import { useSettingsStore } from "../store/settings_store";
+import "../styles/pages/popular.scss";
 
 function Popular() {
   const { isCategoryEnabled } = useSettingsStore();

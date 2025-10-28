@@ -26,7 +26,7 @@ export function useArticleSearch(query, enabled = true) {
       // Filter and map articles
       const articles = data.response.docs
         .filter((doc) => {
-          // Filter out live blogs
+          // Filter out live blogs and briefings
           const isLiveBlog =
             doc.document_type === "liveblog" ||
             doc.type_of_material === "Live Blog Post" ||
@@ -34,15 +34,16 @@ export function useArticleSearch(query, enabled = true) {
             doc.headline?.main?.toLowerCase().includes("here's the latest") ||
             doc.headline?.main?.toLowerCase().includes("live updates");
 
-          // Filter out articles with no content (useless)
+          // Filter out articles with no content
           const hasContent = doc.abstract || doc.snippet || doc.lead_paragraph;
 
           return !isLiveBlog && hasContent;
         })
         .map((doc) => {
-          // Handle multimedia - NYT Cannot decide how tf they wanna structure this
+          // Handle multimedia - NYT Search API has object structure (not array)
           let multimedia = null;
           if (doc.multimedia) {
+            // Try to get the image URL from different possible locations
             const imageUrl =
               doc.multimedia.default?.url || doc.multimedia.thumbnail?.url;
 
@@ -66,7 +67,7 @@ export function useArticleSearch(query, enabled = true) {
 
       return articles;
     },
-    staleTime: 1000 * 60 * 4, // 4 minutes
+    staleTime: 1000 * 60 * 5,
     retry: false,
     enabled: enabled && query.length > 0,
   });
