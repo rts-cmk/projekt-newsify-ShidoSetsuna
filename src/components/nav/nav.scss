@@ -41,16 +41,17 @@
       min-height: 60px;
       justify-content: center;
 
-      &:hover {
-        color: vars.$color-brand;
-        background-color: rgba(vars.$color-brand, 0.1);
+      @media (hover: hover) and (pointer: fine) {
+        &:hover {
+          color: vars.$color-brand;
+          background-color: rgba(vars.$color-brand, 0.1);
+        }
       }
     }
 
-    // Active state styling
     &--active {
       a {
-        color: vars.$color-brand;
+        color: vars.$color-brand !important;
         font-weight: 600;
       }
     }
@@ -68,7 +69,6 @@
       }
     }
 
-    // Active state for icons
     &--active {
       color: vars.$color-brand;
       transform: scale(1.1);

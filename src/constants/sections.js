@@ -1,4 +1,4 @@
-// constants/sections.js
+// All of the sections available from the NYT API (That I could find)
 export const NYT_SECTIONS = [
   { section: "home", title: "HOME" },
   { section: "arts", title: "ARTS" },

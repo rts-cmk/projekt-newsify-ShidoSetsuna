@@ -7,7 +7,7 @@
   $text-color: vars.$color-brand,
   $border-color: vars.$color-brand,
   $border-width: 2px,
-  $padding: 1rem 2rem,
+  $padding: 1rem 1.5rem,
   $border-radius: 64px,
   $font-size: 1rem,
   $font-weight: 400,
@@ -27,6 +27,12 @@
   cursor: pointer;
   transition: all 0.3s ease;
   max-height: 64px;
+
+  // Responsive padding and font size for smaller screens
+  @media (max-width: 480px) {
+    padding: 1rem 1.25rem;
+    font-size: 0.9rem;
+  }
 
   &:hover:not(:disabled) {
     @if $hover-bg {

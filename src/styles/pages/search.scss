@@ -1,10 +1,10 @@
-// styles/pages/search.scss
 @use "../variables" as vars;
 
 .search {
   max-width: 800px;
   margin: 0 auto;
   min-height: 100vh;
+  padding-bottom: 8em;
 
   @include vars.themify(vars.$themes) {
     background: vars.themed("bg");
@@ -60,9 +60,5 @@
     @include vars.themify(vars.$themes) {
       color: vars.themed("accent");
     }
-  }
-
-  &__results {
-    // Articles will be displayed here
   }
 }

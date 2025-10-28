@@ -14,7 +14,7 @@ import Layout from "./layout/layout.jsx";
 import Splash from "./components/splash/splash.jsx";
 import Onboarding from "./components/onboarding/onboarding.jsx";
 
-// Create a client
+// Create our query client
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -118,7 +118,7 @@ function App() {
   const [showOnboarding, setShowOnboarding] = useState(false);
   const [appReady, setAppReady] = useState(false);
 
-  // Initialize theme immediately on app load
+  // Initialize theme immediately on app load (IMPORTANT!!)
   useEffect(() => {
     const initializeTheme = () => {
       const saved = localStorage.getItem("theme");
@@ -157,7 +157,6 @@ function App() {
     if (isAuthenticated() && hasSeenOnboarding()) {
       setAppReady(true);
     } else if (!hasSeenOnboarding()) {
-      // Onboarding will be shown
     } else {
       setAppReady(true);
     }
@@ -211,7 +210,7 @@ function App() {
     );
   }
 
-  // Fallback
+  // Fallback (Pray we dont end up here)
   return (
     <PersistQueryClientProvider
       client={queryClient}

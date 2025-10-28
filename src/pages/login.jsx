@@ -4,7 +4,7 @@ import "../styles/pages/login.scss";
 function Login({ onLogin }) {
   const handleLogin = (provider) => {
     console.log(`Logging in with ${provider}`);
-    // For demo purposes, all buttons just log the user in
+    // Since I'm making a demo, all buttons just log the user in
     onLogin();
   };
 

@@ -25,13 +25,17 @@ function Category({
   // Use provided articles or fetched articles
   const articles = providedArticles || fetchedArticles;
 
+  // Limit to 10 articles per category (only for home/popular, not archive)
+  const displayArticles = providedArticles
+    ? articles // Archive - show all provided articles
+    : articles?.slice(0, 10); // Home/Popular - limit to 10
+
   const favoritesCategory = categoryName || section;
 
-  // Update max-height when content changes (e.g., when articles load)
+  // Update max-height when content changes (likke fx when articles load)
   useEffect(() => {
     const content = contentRef.current;
     if (content && isOpen && !isLoading) {
-      // Recalculate and update height when articles finish loading
       requestAnimationFrame(() => {
         const newHeight = content.scrollHeight;
         content.style.maxHeight = `${newHeight}px`;
@@ -40,14 +44,13 @@ function Category({
   }, [articles, isLoading, isOpen]);
 
   const handleClick = (e) => {
-    e.preventDefault(); // Prevent default summary click
-
     const content = contentRef.current;
-    const details = content.closest("details");
-    if (!content || !details) return;
+    if (!content) return;
+
+    e.preventDefault();
+    e.stopPropagation();
 
     if (isOpen) {
-      // Closing: animate to 0 first, then close
       const currentHeight = content.scrollHeight;
       content.style.maxHeight = `${currentHeight}px`;
       content.style.overflow = "hidden";
@@ -57,32 +60,50 @@ function Category({
         content.style.maxHeight = "0";
       });
 
-      // Only close after animation completes
+      // Only close AFTER animation completes (plz work)
       setTimeout(() => {
         setIsOpen(false);
       }, 300);
     } else {
-      // Opening: open first, then animate
       setIsOpen(true);
 
-      // Immediately hide content before it can render
       content.style.maxHeight = "0";
       content.style.overflow = "hidden";
       content.style.transition = "none";
 
-      // Force reflow then animate
       content.offsetHeight;
 
       requestAnimationFrame(() => {
         const targetHeight = content.scrollHeight;
-        content.style.transition = "max-height 1s ease-out";
+        content.style.transition = "max-height 0.3s ease-out";
         content.style.maxHeight = `${targetHeight}px`;
       });
     }
   };
 
+  const handleToggle = (e) => {
+    const content = contentRef.current;
+    if (!content) return;
+
+    const details = e.currentTarget;
+
+    // If details was closed by browser (fx another details with same name opened)
+    if (!details.open && isOpen) {
+      content.style.transition = "max-height 0.3s ease-out";
+      content.style.maxHeight = "0";
+
+      setTimeout(() => {
+        setIsOpen(false);
+      }, 300);
+    }
+  };
+
   return (
-    <details className="category" open={isOpen} name="categories">
+    <details
+      className="category"
+      open={isOpen}
+      name="categories"
+      onToggle={handleToggle}>
       <summary className="category__header" onClick={handleClick}>
         <div className="category__icon">N</div>
         <h2 className="category__title">{title}</h2>
@@ -98,14 +119,14 @@ function Category({
               : "Error loading articles"}
           </p>
         )}
-        {articles?.map((article, index) => (
+        {displayArticles?.map((article, index) => (
           <ArticleItem
             key={`${section}-${index}-${article.url || article.title || index}`}
             article={article}
             category={favoritesCategory}
           />
         ))}
-        {articles?.length === 0 && isOpen && (
+        {displayArticles?.length === 0 && isOpen && (
           <p className="category__empty">No articles in this category</p>
         )}
       </section>

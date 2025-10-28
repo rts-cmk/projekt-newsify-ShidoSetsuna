@@ -13,6 +13,12 @@ function Settings() {
     { id: "popular-month", label: "This Month" },
   ];
 
+  const handleLogOut = () => {
+    // Clear local storage and reload the app to reset state
+    localStorage.removeItem("isLoggedIn");
+    window.location.reload();
+  };
+
   return (
     <main className="settings">
       <h1 className="settings__title">Settings</h1>
@@ -49,6 +55,9 @@ function Settings() {
         <h2 className="settings__section-title">General</h2>
         <div className="settings__option">
           <ThemeToggle />
+          <button className="settings__logout-button" onClick={handleLogOut}>
+            Log Out
+          </button>
         </div>
       </section>
     </main>

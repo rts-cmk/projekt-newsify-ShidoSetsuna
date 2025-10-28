@@ -5,17 +5,22 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  padding: 3.5rem 1rem;
+  justify-content: space-evenly;
   height: 100vh;
+  height: 100dvh;
   @include vars.themify(vars.$themes) {
     background-color: vars.themed("bg");
     color: vars.themed("text");
   }
 
+  // For mobile browsers with address bar
+  @supports (-webkit-touch-callout: none) {
+    height: -webkit-fill-available;
+  }
+
   &__logo {
-    width: 10em;
-    height: 10em;
+    width: 9rem;
+    height: 9rem;
     object-fit: contain;
   }
 
@@ -32,7 +37,7 @@
       color: vars.themed("text");
     }
     text-align: center;
-    margin: 3rem 0;
+    margin: 2.4rem 0;
   }
 
   &__buttons-external {
@@ -70,7 +75,7 @@
     position: relative;
     width: 100%;
     max-width: 300px;
-    margin: 1.5rem 0;
+    margin: 0.64rem 0;
 
     &::before {
       content: "";
@@ -117,7 +122,7 @@
     @include vars.themify(vars.$themes) {
       color: vars.themed("text");
     }
-    margin-top: 1rem;
+    margin-top: 0.64rem;
 
     a {
       color: vars.$color-brand;

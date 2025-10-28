@@ -1,10 +1,11 @@
 // styles/pages/settings.scss
 @use "../variables" as vars;
+@use "../mixins" as mixins;
 
 .settings {
   max-width: 800px;
   margin: 0 auto;
-  padding: 24px 16px;
+  padding: 24px 16px 8em 16px;
   min-height: 100vh;
 
   @include vars.themify(vars.$themes) {
@@ -49,5 +50,11 @@
 
   &__option {
     padding: 16px 0 24px 0;
+  }
+
+  &__logout-button {
+    margin-top: 16px;
+    width: 100%;
+    @include mixins.button-outlined(vars.$color-delete);
   }
 }

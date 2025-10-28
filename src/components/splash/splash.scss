@@ -63,19 +63,6 @@
   }
 }
 
-// Alternative background options (uncomment to use)
-// .splash {
-//   // Option 1: Solid color
-//   // background: #667eea;
-//
-//   // Option 2: Your brand colors
-//   // background: linear-gradient(135deg, #your-primary-color 0%, #your-secondary-color 100%);
-//
-//   // Option 3: Dark theme
-//   // background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
-// }
-
-// Responsive design
 @media (min-width: 768px) {
   .splash {
     &__logo {

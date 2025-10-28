@@ -57,6 +57,7 @@ function ArticleItem({ article, category }) {
   };
 
   // Some parts of the API use different fields for multimedia, so we check both
+  // (Why did they do this????)
   const getThumbnail = () => {
     if (article.multimedia && article.multimedia.length > 0) {
       return article.multimedia[0].url;

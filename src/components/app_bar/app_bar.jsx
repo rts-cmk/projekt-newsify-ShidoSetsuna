@@ -1,4 +1,3 @@
-// components/AppBar/app_bar.jsx
 import { useLocation, Link } from "react-router";
 import logo from "../../assets/logo.png";
 import SearchBar from "../search_bar/search_bar";

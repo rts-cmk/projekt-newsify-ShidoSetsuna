@@ -50,7 +50,6 @@ export default function Onboarding({ onSkip, onComplete }) {
         </article>
       </section>
 
-      {/* Slide indicators */}
       <div className="onboarding__indicators">
         {slides.map((_, index) => (
           <button
@@ -64,7 +63,6 @@ export default function Onboarding({ onSkip, onComplete }) {
         ))}
       </div>
 
-      {/* Navigation buttons */}
       <div className="onboarding__navigation">
         <button
           className="onboarding__nav-btn onboarding__nav-btn--prev"

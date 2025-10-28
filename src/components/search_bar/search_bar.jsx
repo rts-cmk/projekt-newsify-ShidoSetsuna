@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router";
 import { IoSearch, IoClose } from "react-icons/io5";
 import "./search_bar.scss";
@@ -13,6 +13,21 @@ function SearchBar() {
     if (location.pathname === "/archive") return "archive";
     if (location.pathname === "/popular") return "popular";
     return "home";
+  };
+
+  // Check for clicks outside the search bar to collapse it
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
+  //If we register a tab outside the searchbar, close the searchbar
+  const handleClickOutside = (e) => {
+    if (!e.target.closest(".search-bar")) {
+      setIsExpanded(false);
+    }
   };
 
   const handleSubmit = (e) => {

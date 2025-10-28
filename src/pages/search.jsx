@@ -49,21 +49,25 @@ function Search() {
         index === self.findIndex((a) => a.url === article.url)
     );
 
-    return unique.filter(
-      (article) =>
-        article.title.toLowerCase().includes(query.toLowerCase()) ||
-        article.abstract.toLowerCase().includes(query.toLowerCase())
-    );
+    return unique
+      .filter(
+        (article) =>
+          article.title.toLowerCase().includes(query.toLowerCase()) ||
+          article.abstract.toLowerCase().includes(query.toLowerCase())
+      )
+      .slice(0, 10);
   }, [popularToday, popularWeek, popularMonth, query, source]);
 
   const archiveResults = useMemo(() => {
     if (source !== "archive") return [];
 
-    return favorites.filter(
-      (article) =>
-        article.title.toLowerCase().includes(query.toLowerCase()) ||
-        article.abstract.toLowerCase().includes(query.toLowerCase())
-    );
+    return favorites
+      .filter(
+        (article) =>
+          article.title.toLowerCase().includes(query.toLowerCase()) ||
+          article.abstract.toLowerCase().includes(query.toLowerCase())
+      )
+      .slice(0, 10);
   }, [favorites, query, source]);
 
   const results =
@@ -104,7 +108,7 @@ function Search() {
           <ArticleItem
             key={`search-${index}-${article.url}`}
             article={article}
-            category={article.category || "search"}
+            category={article.section || article.category || "General"}
           />
         ))}
       </div>

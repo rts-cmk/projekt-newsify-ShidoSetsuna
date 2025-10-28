@@ -1,4 +1,3 @@
-// pages/Archive.jsx
 import { useFavoritesStore } from "../store/favorites_store";
 import Category from "../components/category/category";
 

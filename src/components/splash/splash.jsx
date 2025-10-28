@@ -6,19 +6,17 @@ export default function Splash({ onComplete }) {
   const [showText, setShowText] = useState(false);
   const [fadeOut, setFadeOut] = useState(false);
 
+  // Handle the timing of text appearance and fade-out
   useEffect(() => {
-    // Start text animation after image loads
     if (imageLoaded) {
       const textTimer = setTimeout(() => {
         setShowText(true);
       }, 800);
 
-      // Start fade out after animations complete
       const fadeTimer = setTimeout(() => {
         setFadeOut(true);
       }, 2000);
 
-      // Complete splash after fade out
       const completeTimer = setTimeout(() => {
         if (onComplete) {
           onComplete();
