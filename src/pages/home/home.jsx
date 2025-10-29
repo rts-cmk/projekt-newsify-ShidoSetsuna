@@ -1,9 +1,9 @@
 import { useState } from "react";
-import Category from "../components/category/category";
-import { NYT_SECTIONS } from "../constants/sections";
-import { useSettingsStore } from "../store/settings_store";
+import Category from "../../components/category/category";
+import { NYT_SECTIONS } from "../../constants/sections";
+import { useSettingsStore } from "../../store/settings_store/settings_store";
 
-import "../styles/pages/home.scss";
+import "../../styles/pages/home.scss";
 
 const SECTIONS_PER_PAGE = 4;
 const INITIAL_LOAD = 4;

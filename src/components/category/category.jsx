@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import ArticleItem from "../article_item/article_item";
 import { IoChevronDown } from "react-icons/io5";
-import { useNewsArticles } from "../../hooks/use_news_articles";
+import { useNewsArticles } from "../../hooks/use_news_articles/use_news_articles";
 import "./category.scss";
 
 function Category({

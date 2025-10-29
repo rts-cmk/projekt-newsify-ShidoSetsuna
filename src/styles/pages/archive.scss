@@ -3,7 +3,7 @@
 .archive {
   max-width: 800px;
   margin: 0 auto;
-  min-height: 100vh;
+  min-height: 75vh;
   padding-bottom: 8em;
   @include vars.themify(vars.$themes) {
     background: vars.themed("bg");

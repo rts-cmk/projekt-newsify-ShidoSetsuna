@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { useFavoritesStore } from "../../store/favorites_store";
-import { IoStar, IoTrash } from "react-icons/io5";
+import { useFavoritesStore } from "../../store/favorites_store/favorites_store";
+import { FiTrash } from "react-icons/fi";
+import { FaRegBookmark } from "react-icons/fa6";
 import "./article_item.scss";
 
 function ArticleItem({ article, category }) {
@@ -58,14 +59,61 @@ function ArticleItem({ article, category }) {
 
   // Some parts of the API use different fields for multimedia, so we check both
   // (Why did they do this????)
+  // I realized there are many different images, for different sizes,
+  // so we'll need to look for the smallest one available
   const getThumbnail = () => {
+    // Strategy 1: Try to find image by format name (prefer smallest)
+    const findImageByFormat = (mediaArray) => {
+      const preferredFormats = [
+        "Large Thumbnail",
+        "threeByTwoSmallAt2X",
+        "Super Jumbo",
+      ];
+
+      for (const format of preferredFormats) {
+        const image = mediaArray.find((img) => img.format === format);
+        if (image) return image.url;
+      }
+      return null;
+    };
+
+    // Strategy 2: Find smallest image by dimensions
+    const findSmallestImage = (mediaArray) => {
+      let smallest = mediaArray[0];
+      let smallestArea =
+        (smallest.width || Infinity) * (smallest.height || Infinity);
+
+      for (const img of mediaArray) {
+        const area = (img.width || Infinity) * (img.height || Infinity);
+        if (area < smallestArea) {
+          smallest = img;
+          smallestArea = area;
+        }
+      }
+      return smallest.url;
+    };
+
+    // Handle article.multimedia
     if (article.multimedia && article.multimedia.length > 0) {
+      const byFormat = findImageByFormat(article.multimedia);
+      if (byFormat) return byFormat;
+
+      const bySize = findSmallestImage(article.multimedia);
+      if (bySize) return bySize;
+
       return article.multimedia[0].url;
     }
 
+    // Handle article.media (media-metadata structure)
     if (article.media && article.media.length > 0) {
       const mediaMetadata = article.media[0]["media-metadata"];
       if (mediaMetadata && mediaMetadata.length > 0) {
+        const byFormat = findImageByFormat(mediaMetadata);
+        if (byFormat) return byFormat;
+
+        const bySize = findSmallestImage(mediaMetadata);
+        if (bySize) return bySize;
+
         return mediaMetadata[0].url;
       }
     }
@@ -113,7 +161,7 @@ function ArticleItem({ article, category }) {
           }`}
           onClick={handleActionClick}
           aria-label={favorited ? "Remove from favorites" : "Add to favorites"}>
-          {favorited ? <IoTrash size={24} /> : <IoStar size={24} />}
+          {favorited ? <FiTrash size={24} /> : <FaRegBookmark size={24} />}
         </button>
       </div>
     </article>

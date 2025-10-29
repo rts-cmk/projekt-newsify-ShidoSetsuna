@@ -1,5 +1,5 @@
-import logo from "../assets/logo.png";
-import "../styles/pages/login.scss";
+import logo from "../../assets/logo.png";
+import "../../styles/pages/login.scss";
 
 function Login({ onLogin }) {
   const handleLogin = (provider) => {

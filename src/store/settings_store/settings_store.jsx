@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import { NYT_SECTIONS } from "../constants/sections";
+import { NYT_SECTIONS } from "../../constants/sections";
 
 export const useSettingsStore = create(
   persist(

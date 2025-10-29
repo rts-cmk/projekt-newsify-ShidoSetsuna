@@ -1,6 +1,6 @@
-import { useFavoritesStore } from "../store/favorites_store";
-import Category from "../components/category/category";
-import "../styles/pages/archive.scss";
+import { useFavoritesStore } from "../../store/favorites_store/favorites_store";
+import Category from "../../components/category/category";
+import "../../styles/pages/archive.scss";
 
 function Archive() {
   const { favorites, getAllCategories } = useFavoritesStore();

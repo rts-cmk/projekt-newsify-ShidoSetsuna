@@ -1,8 +1,8 @@
-import "../styles/pages/settings.scss";
-import ThemeToggle from "../components/theme_toggle/theme_toggle";
-import Toggle from "../components/toggle/toggle";
-import { useSettingsStore } from "../store/settings_store";
-import { NYT_SECTIONS } from "../constants/sections";
+import "../../styles/pages/settings.scss";
+import ThemeToggle from "../../components/theme_toggle/theme_toggle";
+import Toggle from "../../components/toggle/toggle";
+import { useSettingsStore } from "../../store/settings_store/settings_store";
+import { NYT_SECTIONS } from "../../constants/sections";
 
 function Settings() {
   const { enabledCategories, toggleCategory } = useSettingsStore();
