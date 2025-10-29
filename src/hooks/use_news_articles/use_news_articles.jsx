@@ -30,6 +30,8 @@ export function useNewsArticles(type, section, enabled = true) {
 
       const data = await response.json();
 
+      console.log("Fetched articles:", data.results);
+
       const validArticles = data.results.filter(
         (article) => article.title && article.abstract && article.url
       );

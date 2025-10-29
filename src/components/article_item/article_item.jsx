@@ -8,12 +8,13 @@ function ArticleItem({ article, category }) {
   const [swipeOffset, setSwipeOffset] = useState(0);
   const [startX, setStartX] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
+  const [isRemoving, setIsRemoving] = useState(false);
 
   const { toggleFavorite, isFavorited } = useFavoritesStore();
   const favorited = isFavorited(article.url);
 
-  const SWIPE_MAX = 80;
-  const SNAP_THRESHOLD = 40;
+  const SWIPE_MAX = 100;
+  const SNAP_THRESHOLD = 42;
 
   const handleTouchStart = (e) => {
     setStartX(e.touches[0].clientX);
@@ -46,7 +47,20 @@ function ArticleItem({ article, category }) {
   const handleActionClick = (e) => {
     e.preventDefault();
     e.stopPropagation();
-    toggleFavorite(article, category);
+
+    // If removing from favorites, animate first then remove
+    if (favorited) {
+      setIsRemoving(true);
+      // Wait for animation to complete before removing from store
+      setTimeout(() => {
+        toggleFavorite(article, category);
+        setIsRemoving(false);
+      }, 300); // Match CSS transition duration
+    } else {
+      // Adding to favorites, no animation needed
+      toggleFavorite(article, category);
+    }
+
     setSwipeOffset(0);
   };
 
@@ -124,7 +138,8 @@ function ArticleItem({ article, category }) {
   const thumbnail = getThumbnail();
 
   return (
-    <article className="article-item">
+    <article
+      className={`article-item ${isRemoving ? "article-item--removing" : ""}`}>
       <div
         className="article-item__container"
         style={{
@@ -146,6 +161,7 @@ function ArticleItem({ article, category }) {
             ) : (
               <div className="article-item__placeholder" />
             )}
+            <span className="article-item__section">{article.section}</span>
           </div>
           <div className="article-item__content">
             <h3 className="article-item__title">{article.title}</h3>

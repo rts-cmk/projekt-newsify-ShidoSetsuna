@@ -4,6 +4,9 @@ import { IoChevronDown } from "react-icons/io5";
 import { useNewsArticles } from "../../hooks/use_news_articles/use_news_articles";
 import "./category.scss";
 
+// Custom event to close other categories replacing the old "name" event
+const CLOSE_CATEGORY_EVENT = "closeCategoryEvent";
+
 function Category({
   type,
   section,
@@ -13,6 +16,7 @@ function Category({
 }) {
   const [isOpen, setIsOpen] = useState(false);
   const contentRef = useRef(null);
+  const detailsRef = useRef(null);
 
   // Only fetch from API if no articles are provided
   const shouldFetch = !providedArticles && type && section;
@@ -26,9 +30,7 @@ function Category({
   const articles = providedArticles || fetchedArticles;
 
   // Limit to 10 articles per category (only for home/popular, not archive)
-  const displayArticles = providedArticles
-    ? articles // Archive - show all provided articles
-    : articles?.slice(0, 10); // Home/Popular - limit to 10
+  const displayArticles = providedArticles ? articles : articles?.slice(0, 10);
 
   const favoritesCategory = categoryName || section;
 
@@ -43,6 +45,39 @@ function Category({
     }
   }, [articles, isLoading, isOpen]);
 
+  // Listen for close events from other categories
+  useEffect(() => {
+    const handleCloseOthers = (e) => {
+      // If this category is open and another category is requesting to close others
+      if (isOpen && e.detail.categoryRef !== detailsRef.current) {
+        closeWithAnimation();
+      }
+    };
+
+    window.addEventListener(CLOSE_CATEGORY_EVENT, handleCloseOthers);
+    return () => {
+      window.removeEventListener(CLOSE_CATEGORY_EVENT, handleCloseOthers);
+    };
+  }, [isOpen]);
+
+  const closeWithAnimation = () => {
+    const content = contentRef.current;
+    if (!content) return;
+
+    const currentHeight = content.scrollHeight;
+    content.style.maxHeight = `${currentHeight}px`;
+    content.style.overflow = "hidden";
+
+    requestAnimationFrame(() => {
+      content.style.transition = "max-height 0.3s ease-out";
+      content.style.maxHeight = "0";
+    });
+
+    setTimeout(() => {
+      setIsOpen(false);
+    }, 300);
+  };
+
   const handleClick = (e) => {
     const content = contentRef.current;
     if (!content) return;
@@ -51,20 +86,15 @@ function Category({
     e.stopPropagation();
 
     if (isOpen) {
-      const currentHeight = content.scrollHeight;
-      content.style.maxHeight = `${currentHeight}px`;
-      content.style.overflow = "hidden";
-
-      requestAnimationFrame(() => {
-        content.style.transition = "max-height 0.3s ease-out";
-        content.style.maxHeight = "0";
-      });
-
-      // Only close AFTER animation completes (plz work)
-      setTimeout(() => {
-        setIsOpen(false);
-      }, 300);
+      closeWithAnimation();
     } else {
+      // Tell other categories to close with animation
+      window.dispatchEvent(
+        new CustomEvent(CLOSE_CATEGORY_EVENT, {
+          detail: { categoryRef: detailsRef.current },
+        })
+      );
+
       setIsOpen(true);
 
       content.style.maxHeight = "0";
@@ -81,30 +111,8 @@ function Category({
     }
   };
 
-  const handleToggle = (e) => {
-    const content = contentRef.current;
-    if (!content) return;
-
-    const details = e.currentTarget;
-
-    // If details was closed by browser (e.g., another details with same name opened)
-    if (!details.open && isOpen) {
-      // Animate close
-      content.style.transition = "max-height 0.3s ease-out";
-      content.style.maxHeight = "0";
-
-      setTimeout(() => {
-        setIsOpen(false);
-      }, 300);
-    }
-  };
-
   return (
-    <details
-      className="category"
-      open={isOpen}
-      name="categories"
-      onToggle={handleToggle}>
+    <details className="category" open={isOpen} ref={detailsRef}>
       <summary className="category__header" onClick={handleClick}>
         <div className="category__icon">N</div>
         <h2 className="category__title">{title}</h2>

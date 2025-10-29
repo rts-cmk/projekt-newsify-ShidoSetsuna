@@ -3,14 +3,25 @@
 .article-item {
   position: relative;
   overflow: hidden;
+  max-height: 120px;
+  transition: max-height 0.3s ease-out, opacity 0.3s ease-out,
+    margin 0.3s ease-out;
 
   @include vars.themify(vars.$themes) {
     border-bottom: 1px solid vars.themed("text");
   }
 
+  &--removing {
+    max-height: 0;
+    opacity: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+
   &__container {
     display: flex;
     will-change: transform;
+    height: 100px;
   }
 
   &__link {
@@ -20,6 +31,7 @@
     text-decoration: none;
     width: 100%;
     flex-shrink: 0;
+    align-items: center;
 
     @include vars.themify(vars.$themes) {
       background: vars.themed("bg");
@@ -37,6 +49,7 @@
     flex-shrink: 0;
     border-radius: 4px;
     overflow: hidden;
+    position: relative; // Add this for absolute positioning of tag
 
     @include vars.themify(vars.$themes) {
       background: vars.themed("bg");
@@ -110,11 +123,26 @@
     }
   }
 
-  // components/ArticleItem/article_item.scss
-  // ... previous styles ...
+  &__section {
+    position: absolute;
+    bottom: -2px;
+    right: -2px;
+    font-size: 10px;
+    font-weight: 600;
+    padding: 3px 8px;
+    border-radius: 0px;
+    font-family: "Open Sans Variable", sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+
+    @include vars.themify(vars.$themes) {
+      background: rgba(vars.themed("brand"), 0.8);
+      color: vars.themed("bg");
+    }
+  }
 
   &__action {
-    width: 80px;
+    width: 100px;
     flex-shrink: 0;
     border: none;
     color: white;
