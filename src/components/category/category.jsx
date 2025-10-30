@@ -13,6 +13,7 @@ function Category({
   title,
   articles: providedArticles,
   categoryName,
+  isArchivePage = false,
 }) {
   const [isOpen, setIsOpen] = useState(false);
   const contentRef = useRef(null);
@@ -133,6 +134,7 @@ function Category({
             key={`${section}-${index}-${article.url || article.title || index}`}
             article={article}
             category={favoritesCategory}
+            isArchivePage={isArchivePage}
           />
         ))}
         {displayArticles?.length === 0 && isOpen && (

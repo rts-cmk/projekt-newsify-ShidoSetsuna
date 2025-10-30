@@ -15,8 +15,7 @@
 - HTML
 - CSS
 - JavaScript
-- Webpack
-- Jest
+- vitest
 - Vite
 - Sass
 - React

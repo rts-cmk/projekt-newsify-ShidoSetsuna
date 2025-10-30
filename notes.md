@@ -1,1 +1,0 @@
-Feature where when you scroll and have a category open, once the category reaches the top of your screen it sticks there no matter how you scroll, allowing the user to quickly close the category if they want to

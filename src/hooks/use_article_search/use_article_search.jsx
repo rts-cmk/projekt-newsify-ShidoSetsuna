@@ -20,9 +20,9 @@ export function useArticleSearch(query, source = "home", enabled = true) {
     queryKey: ["articleSearch", "home", query],
     queryFn: async () => {
       const response = await fetch(
-        `${SEARCH_API_URL}?q=${encodeURIComponent(
+        `${SEARCH_API_URL}?fq=headline.default:("${encodeURIComponent(
           query
-        )}&rows=10&api-key=${NYT_API_KEY}`
+        )}")&rows=10&api-key=${NYT_API_KEY}`
       );
 
       if (response.status === 429) {
@@ -47,9 +47,15 @@ export function useArticleSearch(query, source = "home", enabled = true) {
 
           const hasContent = doc.abstract || doc.snippet || doc.lead_paragraph;
 
-          return !isLiveBlog && hasContent;
+          const hasValidUrl =
+            doc.web_url &&
+            doc.web_url.trim().length > 0 &&
+            doc.web_url.startsWith("http");
+
+          return !isLiveBlog && hasContent && hasValidUrl;
         })
         .map((doc) => {
+          console.log("Processing document:", doc);
           // Handle multimedia - NYT Search API has object structure
           let multimedia = null;
           if (doc.multimedia) {
@@ -59,6 +65,11 @@ export function useArticleSearch(query, source = "home", enabled = true) {
             if (imageUrl) {
               multimedia = [{ url: imageUrl }];
             }
+          }
+
+          // Provide default abstract if missing
+          if (doc.abstract === "") {
+            doc.abstract = "No description available";
           }
 
           return {

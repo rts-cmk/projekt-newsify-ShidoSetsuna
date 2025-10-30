@@ -27,7 +27,7 @@ function Search() {
       </div>
 
       {isLoading && <p className="search__loading">Searching...</p>}
-      {error && <p className="search__error">Error loading results</p>}
+      {/* {error && <p className="search__error">Error loading results</p>} */}
 
       <div className="search__results">
         {results.length === 0 && !isLoading && (

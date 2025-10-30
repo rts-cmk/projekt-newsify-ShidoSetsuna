@@ -45,6 +45,19 @@ function SearchBar() {
     setIsExpanded(false);
   };
 
+  const handleIconClick = () => {
+    if (isExpanded && query.trim()) {
+      // If already expanded with text, submit the search
+      const source = getSearchSource();
+      navigate(`/search?q=${encodeURIComponent(query)}&source=${source}`);
+      setQuery("");
+      setIsExpanded(false);
+    } else {
+      // Otherwise just expand the bar
+      setIsExpanded(true);
+    }
+  };
+
   return (
     <form
       className={`search-bar ${isExpanded ? "search-bar--expanded" : ""}`}
@@ -52,7 +65,7 @@ function SearchBar() {
       <button
         type="button"
         className="search-bar__icon"
-        onClick={() => setIsExpanded(true)}>
+        onClick={handleIconClick}>
         <IoSearch size={20} />
       </button>
 

@@ -27,6 +27,7 @@ function Archive() {
             section={category}
             title={category.toUpperCase()}
             articles={categoryFavorites}
+            isArchivePage={true}
           />
         );
       })}

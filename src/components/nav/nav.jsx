@@ -49,62 +49,68 @@ export default function Nav() {
   };
 
   return (
-    <nav className="nav">
-      <ul className="nav__list">
-        <li className={`nav__item ${isActive("/") ? "nav__item--active" : ""}`}>
-          <Link to="/">
-            <Icon
-              name="home"
-              className={`nav__icon ${
-                isActive("/") ? "nav__icon--active" : ""
-              }`}
-            />
-            Home
-          </Link>
-        </li>
-        <li
-          className={`nav__item ${
-            isActive("/popular") ? "nav__item--active" : ""
-          }`}>
-          <Link to="/popular">
-            <Icon
-              name="popular"
-              className={`nav__icon ${
-                isActive("/popular") ? "nav__icon--active" : ""
-              }`}
-            />
-            Popular
-          </Link>
-        </li>
-        <li
-          className={`nav__item ${
-            isActive("/archive") ? "nav__item--active" : ""
-          }`}>
-          <Link to="/archive">
-            <Icon
-              name="archive"
-              className={`nav__icon ${
-                isActive("/archive") ? "nav__icon--active" : ""
-              }`}
-            />
-            Archive
-          </Link>
-        </li>
-        <li
-          className={`nav__item ${
-            isActive("/settings") ? "nav__item--active" : ""
-          }`}>
-          <Link to="/settings">
-            <Icon
-              name="settings"
-              className={`nav__icon ${
-                isActive("/settings") ? "nav__icon--active" : ""
-              }`}
-            />
-            Settings
-          </Link>
-        </li>
-      </ul>
-    </nav>
+    <footer className="footer">
+      <nav className="nav">
+        <ul className="nav__list">
+          <li
+            className={`nav__item ${isActive("/") ? "nav__item--active" : ""}`}>
+            <Link to="/">
+              <Icon
+                name="home"
+                className={`nav__icon ${
+                  isActive("/") ? "nav__icon--active" : ""
+                }`}
+              />
+              Home
+            </Link>
+          </li>
+          <li
+            className={`nav__item ${
+              isActive("/popular") ? "nav__item--active" : ""
+            }`}>
+            <Link to="/popular">
+              <Icon
+                name="popular"
+                className={`nav__icon ${
+                  isActive("/popular") ? "nav__icon--active" : ""
+                }`}
+              />
+              Popular
+            </Link>
+          </li>
+          <li
+            className={`nav__item ${
+              isActive("/archive") ? "nav__item--active" : ""
+            }`}>
+            <Link to="/archive">
+              <Icon
+                name="archive"
+                className={`nav__icon ${
+                  isActive("/archive") ? "nav__icon--active" : ""
+                }`}
+              />
+              Archive
+            </Link>
+          </li>
+          <li
+            className={`nav__item ${
+              isActive("/settings") ? "nav__item--active" : ""
+            }`}>
+            <Link to="/settings">
+              <Icon
+                name="settings"
+                className={`nav__icon ${
+                  isActive("/settings") ? "nav__icon--active" : ""
+                }`}
+              />
+              Settings
+            </Link>
+          </li>
+        </ul>
+        <section className="footer__content">
+          <p>© 2025 Headliner. All rights reserved.</p>
+        </section>
+      </nav>
+    </footer>
   );
 }

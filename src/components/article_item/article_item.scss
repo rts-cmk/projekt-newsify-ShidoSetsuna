@@ -142,7 +142,7 @@
   }
 
   &__action {
-    width: 100px;
+    width: 150px; // Increased to accommodate scaled icon
     flex-shrink: 0;
     border: none;
     color: white;
@@ -151,10 +151,26 @@
     align-items: center;
     justify-content: center;
     transition: opacity 0.2s;
+    position: relative;
+    overflow: hidden; // Changed from visible to hidden to contain the content
+
+    span {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
 
     &--favorite {
       @include vars.themify(vars.$themes) {
         background: vars.themed("brand");
+      }
+
+      svg {
+        path {
+          fill: none;
+          stroke-width: 2;
+          stroke: white;
+        }
       }
     }
 
@@ -164,8 +180,48 @@
       }
     }
 
+    &--sparking {
+      animation: pulse-bg 0.3s ease-in-out infinite;
+
+      svg {
+        animation: shake 0.2s ease-in-out infinite;
+
+        path {
+          fill: white;
+        }
+      }
+    }
+
     &:active {
       opacity: 0.8;
     }
+  }
+}
+
+@keyframes pulse-bg {
+  0%,
+  100% {
+    filter: brightness(1);
+  }
+  50% {
+    filter: brightness(1.2);
+  }
+}
+
+@keyframes shake {
+  0% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(5deg);
+  }
+  50% {
+    transform: rotate(0deg);
+  }
+  75% {
+    transform: rotate(-5deg);
+  }
+  100% {
+    transform: rotate(0deg);
   }
 }
