@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import ArticleItem from "../article_item/article_item";
 import { IoChevronDown } from "react-icons/io5";
 import { useNewsArticles } from "../../hooks/use_news_articles/use_news_articles";
+import NYT_logo from "../../assets/nyt_logo.png";
 import "./category.scss";
 
 // Custom event to close other categories replacing the old "name" event
@@ -115,7 +116,9 @@ function Category({
   return (
     <details className="category" open={isOpen} ref={detailsRef}>
       <summary className="category__header" onClick={handleClick}>
-        <div className="category__icon">N</div>
+        <div className="category__icon">
+          <img src={NYT_logo} alt="New York Times Logo" />
+        </div>
         <h2 className="category__title">{title}</h2>
         <IoChevronDown className="category__chevron" />
       </summary>

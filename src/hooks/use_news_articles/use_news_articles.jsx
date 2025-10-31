@@ -1,38 +1,28 @@
 import { useQuery } from "@tanstack/react-query";
+import { NYT_SECTIONS } from "../../constants/sections";
 
 const NYT_API_KEY = import.meta.env.VITE_NYT_API_KEY;
 const SEARCH_API_URL =
   "https://api.nytimes.com/svc/search/v2/articlesearch.json";
 
-// Map section names to their display names for search API
-const SECTION_DISPLAY_NAMES = {
-  arts: "Arts",
-  automobiles: "Automobiles",
-  books: "Books",
-  business: "Business",
-  fashion: "Fashion",
-  food: "Food",
-  health: "Health",
-  home: "Home",
-  insider: "Insider",
-  magazine: "Magazine",
-  movies: "Movies",
+// Map section IDs to their display names for Article Search API
+// Some sections need specific formatting for the Search API
+const SEARCH_API_SECTION_OVERRIDES = {
   nyregion: "New York",
-  obituaries: "Obituaries",
-  opinion: "Opinion",
-  politics: "Politics",
-  realestate: "Real Estate",
-  science: "Science",
-  sports: "Sports",
-  sundayreview: "Sunday Review",
-  technology: "Technology",
-  theater: "Theater",
-  "t-magazine": "T Magazine",
-  travel: "Travel",
-  upshot: "The Upshot",
   us: "U.S.",
-  world: "World",
+  upshot: "The Upshot",
+  "t-magazine": "T Magazine",
 };
+
+// Helper function to get display name for a section
+function getSectionDisplayName(sectionId) {
+  if (SEARCH_API_SECTION_OVERRIDES[sectionId]) {
+    return SEARCH_API_SECTION_OVERRIDES[sectionId];
+  }
+
+  const section = NYT_SECTIONS.find((s) => s.section === sectionId);
+  return section ? section.title : sectionId;
+}
 
 export function useNewsArticles(type, section, enabled = true) {
   return useQuery({
@@ -96,7 +86,7 @@ export function useNewsArticles(type, section, enabled = true) {
 // Fallback function to fetch from Article Search API (Mostly used for sports which hasnt been updated since April 2025....)
 // Consider moving this to use_article_search for SOC?
 async function fetchFromSearchAPI(section) {
-  const sectionDisplayName = SECTION_DISPLAY_NAMES[section] || section;
+  const sectionDisplayName = getSectionDisplayName(section);
 
   const response = await fetch(
     `${SEARCH_API_URL}?fq=section.displayName:("${encodeURIComponent(

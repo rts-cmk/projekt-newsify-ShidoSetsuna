@@ -24,8 +24,8 @@
     cursor: pointer;
     transition: background-color 0.2s, box-shadow 0.2s;
     list-style: none;
-    touch-action: manipulation; // Remove 300ms tap delay on mobile
-    -webkit-tap-highlight-color: transparent; // Remove tap highlight
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
     @include vars.themify(vars.$themes) {
       border-bottom: 1px solid vars.themed("accent");
     }
@@ -54,10 +54,6 @@
     font-weight: bold;
     border-radius: 4px;
     font-family: vars.$font_family-heading;
-
-    @include vars.themify(vars.$themes) {
-      background: vars.themed("brand");
-    }
   }
 
   &__title {
