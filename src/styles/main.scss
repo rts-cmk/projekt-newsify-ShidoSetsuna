@@ -1,0 +1,26 @@
+@use "reset";
+@use "variables" as vars;
+
+// Fonts
+@use "@fontsource-variable/playfair-display";
+@use "@fontsource-variable/open-sans";
+
+// Global theme styling
+@include vars.themify-root(vars.$themes) {
+  background-color: vars.themed("bg");
+  color: vars.themed("text");
+  transition: background-color 0.3s ease, color 0.3s ease;
+  height: 100%;
+}
+
+html {
+  height: 100%;
+}
+
+#root {
+  min-height: 100%;
+  @include vars.themify(vars.$themes) {
+    background-color: vars.themed("bg");
+    color: vars.themed("text");
+  }
+}

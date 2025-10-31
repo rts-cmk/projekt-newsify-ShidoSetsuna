@@ -1,0 +1,90 @@
+@use "../../styles/variables" as vars;
+
+.theme-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 8px;
+  transition: background-color 0.2s ease;
+  font-family: vars.$font_family-body;
+
+  @include vars.themify(vars.$themes) {
+    color: vars.themed("text");
+
+    &:hover {
+      background-color: rgba(vars.themed("brand"), 0.1);
+    }
+  }
+
+  &__track {
+    position: relative;
+    width: 52px;
+    height: 28px;
+    border-radius: 14px;
+    transition: background-color 0.3s ease;
+
+    @include vars.themify(vars.$themes) {
+      background-color: vars.themed("accent");
+    }
+  }
+
+  &--dark &__track {
+    @include vars.themify(vars.$themes) {
+      background-color: vars.themed("brand");
+    }
+  }
+
+  &__thumb {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+
+    @include vars.themify(vars.$themes) {
+      background-color: vars.themed("bg");
+    }
+  }
+
+  &--dark &__thumb {
+    transform: translateX(24px);
+  }
+
+  &__icon {
+    width: 14px;
+    height: 14px;
+    transition: color 0.2s ease;
+
+    @include vars.themify(vars.$themes) {
+      color: vars.themed("text");
+    }
+  }
+
+  &__label {
+    font-size: vars.$font_size-description-small;
+    font-weight: 500;
+    user-select: none;
+
+    @include vars.themify(vars.$themes) {
+      color: vars.themed("text");
+    }
+  }
+
+  &:focus-visible {
+    outline-offset: 2px;
+
+    @include vars.themify(vars.$themes) {
+      outline: 2px solid vars.themed("brand");
+    }
+  }
+}

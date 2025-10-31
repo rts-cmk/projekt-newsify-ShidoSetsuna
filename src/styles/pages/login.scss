@@ -1,0 +1,153 @@
+@use "../variables" as vars;
+@use "../mixins" as mixins;
+
+.login {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  height: 100vh;
+  height: 100dvh;
+  @include vars.themify(vars.$themes) {
+    background-color: vars.themed("bg");
+    color: vars.themed("text");
+  }
+
+  // For mobile browsers with address bar
+  @supports (-webkit-touch-callout: none) {
+    height: -webkit-fill-available;
+  }
+
+  &__logo {
+    width: 9rem;
+    height: 9rem;
+    object-fit: contain;
+  }
+
+  &__title {
+    font-family: vars.$font_family-heading;
+    font-size: vars.$font_size-header;
+    text-align: center;
+  }
+
+  &__subtitle {
+    font-family: vars.$font_family-body;
+    font-size: vars.$font_size-description;
+    @include vars.themify(vars.$themes) {
+      color: vars.themed("text");
+    }
+    text-align: center;
+    margin: 2.4rem 0;
+  }
+
+  &__buttons-external {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 100%;
+    max-width: 300px;
+    margin-bottom: 2rem;
+  }
+
+  &__button-external {
+    @include mixins.button-outlined(vars.$color-accent);
+    @include vars.themify(vars.$themes) {
+      color: vars.themed("text");
+    }
+    font-weight: 600;
+
+    &:hover {
+      background-color: vars.$color-accent;
+      transform: translateY(-1px);
+    }
+  }
+
+  &__button-internal {
+    @include mixins.button-filled(vars.$color-brand, vars.$color-bg);
+    width: 100%;
+    max-width: 300px;
+    font-weight: 600;
+    margin: 2rem 0;
+  }
+
+  // Separator with "or" text
+  &__separator {
+    position: relative;
+    width: 100%;
+    max-width: 300px;
+    margin: 0.64rem 0;
+
+    &::before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 0;
+      right: 0;
+      height: 1px;
+      @include vars.themify(vars.$themes) {
+        background-color: vars.themed("text");
+      }
+      width: 130px;
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      right: 0;
+      height: 1px;
+      @include vars.themify(vars.$themes) {
+        background-color: vars.themed("text");
+      }
+      width: 130px;
+    }
+
+    &-text {
+      position: relative;
+      display: block;
+      text-align: center;
+      @include vars.themify(vars.$themes) {
+        color: vars.themed("text");
+      }
+      font-family: vars.$font-family-body;
+      font-size: 16px;
+      padding: 0 1rem;
+      z-index: 1;
+    }
+  }
+
+  &__signup-text {
+    font-family: vars.$font_family-body;
+    font-size: vars.$font_size-description-small;
+    @include vars.themify(vars.$themes) {
+      color: vars.themed("text");
+    }
+    margin-top: 0.64rem;
+
+    a {
+      color: vars.$color-brand;
+      text-decoration: none;
+      font-weight: 600;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}
+
+// Responsive design
+@media (min-width: 768px) {
+  .login {
+    &__logo {
+      width: 100px;
+      height: 100px;
+    }
+
+    &__buttons-external,
+    &__separator,
+    &__button-internal {
+      max-width: 400px;
+    }
+  }
+}

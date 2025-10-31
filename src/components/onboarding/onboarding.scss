@@ -1,0 +1,121 @@
+@use "../../styles/variables" as vars;
+@use "../../styles/mixins" as mixins;
+
+.onboarding {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  height: 100vh;
+  height: 100dvh;
+  max-height: 100vh;
+  max-height: 100dvh;
+  overflow-y: auto;
+  padding: 1rem;
+  text-align: center;
+  @include vars.themify(vars.$themes) {
+    background-color: vars.themed("bg");
+  }
+
+  // For mobile browsers with address bar
+  @supports (-webkit-touch-callout: none) {
+    height: -webkit-fill-available;
+    max-height: -webkit-fill-available;
+  }
+
+  &__content {
+    flex: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__image {
+    width: 84%;
+    height: 100%;
+    margin-bottom: 2rem;
+  }
+
+  &__header {
+    font-family: vars.$font_family-heading;
+    font-size: vars.$font_size-header;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    line-height: 1.3;
+    @include vars.themify(vars.$themes) {
+      color: vars.themed("text");
+    }
+  }
+
+  &__description {
+    font-family: vars.$font_family-body;
+    font-size: vars.$font_size-description;
+    line-height: 1.5;
+    @include vars.themify(vars.$themes) {
+      color: vars.themed("text");
+    }
+    margin-bottom: 2.4rem;
+  }
+
+  &__indicators {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 2.4rem;
+  }
+
+  &__indicator {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border: none;
+    background-color: vars.$color-accent;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+
+    &.active {
+      background-color: vars.$color-brand;
+    }
+  }
+
+  &__navigation {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 400px;
+    gap: 1rem;
+  }
+
+  &__nav-btn {
+    // Base button styling using mixin
+    @include mixins.button-base();
+
+    &--prev {
+      // Outlined button variant
+      @include mixins.button-outlined(vars.$color-brand);
+    }
+
+    &--next {
+      // Filled button variant
+      @include mixins.button-filled(vars.$color-brand, vars.$color-bg);
+    }
+  }
+}
+
+// Responsive design
+@media (min-width: 768px) {
+  .onboarding {
+    &__header {
+      font-size: 2.2rem;
+    }
+
+    &__description {
+      font-size: 1.1rem;
+    }
+
+    &__image {
+      max-width: 350px;
+      height: 350px;
+    }
+  }
+}

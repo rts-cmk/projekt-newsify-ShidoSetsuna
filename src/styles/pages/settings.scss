@@ -1,0 +1,60 @@
+// styles/pages/settings.scss
+@use "../variables" as vars;
+@use "../mixins" as mixins;
+
+.settings {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 24px 16px 8em 16px;
+  min-height: 100vh;
+
+  @include vars.themify(vars.$themes) {
+    background: vars.themed("bg");
+  }
+
+  &__title {
+    font-family: vars.$font_family-heading;
+    font-size: vars.$font_size-header;
+    margin: 0 0 32px 0;
+
+    @include vars.themify(vars.$themes) {
+      color: vars.themed("text");
+    }
+  }
+
+  &__section {
+    margin-bottom: 32px;
+
+    @include vars.themify(vars.$themes) {
+      border-bottom: 1px solid vars.themed("surface");
+    }
+
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+
+  &__section-title {
+    font-family: vars.$font_family-body;
+    font-size: vars.$font_size-subheader;
+    margin: 0 0 16px 0;
+
+    @include vars.themify(vars.$themes) {
+      color: vars.themed("text");
+    }
+  }
+
+  &__toggles {
+    padding-bottom: 16px;
+  }
+
+  &__option {
+    padding: 16px 0 24px 0;
+  }
+
+  &__logout-button {
+    margin-top: 16px;
+    width: 100%;
+    @include mixins.button-outlined(vars.$color-delete);
+  }
+}

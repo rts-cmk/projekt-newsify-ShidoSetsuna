@@ -1,0 +1,18 @@
+@use "../variables" as vars;
+@use "../mixins" as mixins;
+
+.home {
+  max-width: 800px;
+  min-height: 75vh;
+  padding-bottom: 8em;
+
+  @include vars.themify(vars.$themes) {
+    background: vars.themed("bg");
+  }
+
+  &__load-more {
+    display: flex;
+    margin: 1rem auto;
+    @include mixins.button-outlined(vars.$color-brand);
+  }
+}

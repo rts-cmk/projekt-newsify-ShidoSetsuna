@@ -1,0 +1,93 @@
+@use "../../styles/variables" as vars;
+
+.category {
+  // Make the header sticky when category is open
+  &[open] &__header {
+    position: sticky;
+    top: 70px;
+    z-index: 10;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  &:first-child &__header {
+    @include vars.themify(vars.$themes) {
+      border-top: 1px solid vars.themed("accent");
+    }
+  }
+
+  &__header {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px;
+    cursor: pointer;
+    transition: background-color 0.2s, box-shadow 0.2s;
+    list-style: none;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+    @include vars.themify(vars.$themes) {
+      border-bottom: 1px solid vars.themed("accent");
+    }
+
+    &::-webkit-details-marker {
+      display: none;
+    }
+
+    @include vars.themify(vars.$themes) {
+      background: vars.themed("bg");
+      color: vars.themed("text");
+
+      &:hover {
+        background-color: vars.themed("surface");
+      }
+    }
+  }
+
+  &__icon {
+    width: 32px;
+    height: 32px;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    border-radius: 4px;
+    font-family: vars.$font_family-heading;
+  }
+
+  &__title {
+    flex: 1;
+    text-align: left;
+    font-size: vars.$font_size-description;
+    font-weight: 600;
+    margin: 0;
+    font-family: vars.$font_family-heading;
+  }
+
+  &__chevron {
+    font-size: 24px;
+    transition: transform 0.3s ease;
+  }
+
+  &[open] &__chevron {
+    transform: rotate(180deg);
+  }
+
+  &__content {
+    overflow: hidden;
+  }
+
+  &__loading,
+  &__error,
+  &__empty {
+    padding: 16px;
+    text-align: center;
+    font-family: vars.$font_family-body;
+    font-size: vars.$font_size-description-small;
+
+    @include vars.themify(vars.$themes) {
+      color: vars.themed("accent");
+    }
+  }
+}

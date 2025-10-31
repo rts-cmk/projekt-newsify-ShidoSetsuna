@@ -1,0 +1,38 @@
+@use "../../styles/variables" as vars;
+
+.app-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+
+  @include vars.themify(vars.$themes) {
+    background: vars.themed("bg");
+    border-bottom: 1px solid vars.themed("surface");
+  }
+
+  &__brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+  }
+
+  &__logo {
+    width: 40px;
+    height: 40px;
+  }
+
+  &__title {
+    font-family: vars.$font_family-heading;
+    font-size: vars.$font_size-subheader;
+    margin: 0;
+
+    @include vars.themify(vars.$themes) {
+      color: vars.themed("text");
+    }
+  }
+}
